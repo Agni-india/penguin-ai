@@ -1,25 +1,30 @@
 import streamlit as st
+import urllib.parse
 
-# Website ki settings
-st.set_page_config(page_title="Agni AI Wallpaper", page_icon="🎨")
+# Page configuration
+st.set_page_config(page_title="Penguin AI", page_icon="🐧")
 
-# Main Page ki Heading
-st.title("🔥 Agni AI: Unlimited Wallpaper Gen")
-st.write("Class 10th Project - Unlimited & Free Wallpapers")
+# Branding (Pengu hatakar Penguin AI kar diya)
+st.title("🐧 Penguin AI")
+st.subheader("Unlimited & Free AI Wallpapers")
 
-# Prompt box jahan user likhega
-prompt = st.text_input("Enter your idea (Example: 'Realistic Dragon' or 'Cyberpunk Car'):")
+# Input box
+prompt = st.text_input("Enter your wallpaper idea (e.g., A cyberpunk city):", "")
 
 if st.button("Generate Wallpaper"):
     if prompt:
-        # AI ko batana ki kya image banani hai
-        # Humne resolution 1080x1920 rakha hai jo phone ke liye best hai
-        image_url = f"https://image.pollinations.ai/prompt/{prompt.replace(' ', '%20')}?width=1080&height=1920&nologo=true"
+        # Prompt encoding
+        encoded_prompt = urllib.parse.quote(prompt)
         
-        # Image dikhana
-        st.image(image_url, caption=f"Result for: {prompt}", use_column_width=True)
+        # Pollinations AI URL
+        image_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1080&height=1920&nologo=true"
         
-        # Download button/link
-        st.markdown(f"### [📥 Download Image]({image_url})")
+        # Displaying the actual image
+        st.image(image_url, caption=f"Created by Penguin AI", use_container_width=True)
+        
+        # Download link
+        st.markdown(f"### [Download Wallpaper]({image_url})")
     else:
-        st.warning("Bhai, pehle kuch likho toh sahi!")
+        st.warning("Please enter a prompt first!")
+
+st.info("Tip: Mention colors and lighting for better results.")
